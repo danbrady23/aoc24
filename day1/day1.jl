@@ -1,10 +1,8 @@
 function import_data(full_path::String)
-    input = open(full_path) do file
-        readlines(file)
-    end
+    input = readlines(full_path) |>
+        x -> parse_line.(x)
 
-    input_parsed = parse_line.(input)
-    input_matrix = mapreduce(permutedims, vcat, input_parsed)
+    input_matrix = mapreduce(permutedims, vcat, input)
 
     return input_matrix
 end
